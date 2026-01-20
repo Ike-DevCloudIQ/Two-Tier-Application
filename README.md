@@ -1,51 +1,251 @@
-# Two-Tier-Application
-# 🏗️ Two-Tier AWS Infrastructure with Terraform  
+# Two-Tier AWS Infrastructure with Terraform
 
-![Two-Tier Architecture](https://imgur.com/X4dGBg6.gif)
+[![Terraform](https://img.shields.io/badge/Terraform-1.x-623CE4?logo=terraform&logoColor=white)](https://terraform.io)
+[![AWS](https://img.shields.io/badge/AWS-Cloud-FF9900?logo=amazon-aws&logoColor=white)](https://aws.amazon.com)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Infrastructure as Code](https://img.shields.io/badge/IaC-Terraform-7B42BC)](https://terraform.io)
 
-## 📌 Overview  
+## 📋 Table of Contents
 
-This project demonstrates a **Two-Tier architecture on AWS** using **Terraform** for Infrastructure as Code (IaC). It follows a modular and security-enhanced approach to create a **scalable, secure, and maintainable** infrastructure.  
+- [Use Case](#use-case)
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Deployment](#deployment)
+- [Monitoring & Logging](#monitoring--logging)
+- [Security](#security)
+- [Troubleshooting](#troubleshooting)
+- [Cost Optimization](#cost-optimization)
+- [Contributing](#contributing)
 
-### ✅ Key Features  
+## 💼 Use Case
 
-- **Modular Architecture** – Reusable Terraform modules for better management  
-- **Infrastructure as Code (IaC)** – Automate AWS resource provisioning  
-- **Security Best Practices** – IAM roles, policies, and WAF integration  
-- **Scalability & High Availability** – Auto Scaling, Load Balancing, and Route 53  
-- **Database Integration** – Managed Amazon RDS deployment  
-- **SSL & CDN Optimization** – Secure connections and content acceleration  
+### **Scenario: CloudAutomation Solutions - Enterprise Migration**
+
+You are a **Senior Cloud Infrastructure Engineer** at **CloudAutomation Solutions**, a digital transformation consultancy that helps enterprises migrate their legacy applications to the cloud. Your team has been contracted by a major financial services company to modernize their customer-facing web application that currently runs on on-premises infrastructure.
+
+#### **Client Requirements:**
+- 🏢 **Legacy Challenge**: Replace aging on-premises infrastructure running a monolithic web application
+- 📈 **Scale Expectations**: Handle 10,000+ concurrent users during peak trading hours
+- 🔒 **Security Compliance**: Meet strict financial regulations (PCI DSS, SOC 2 compliance)
+- ⏰ **High Availability**: 99.95% uptime SLA with < 2 seconds response time
+- 🌍 **Global Reach**: Serve customers across multiple geographic regions
+- 💰 **Cost Control**: Reduce infrastructure costs by 40% while improving performance
+
+#### **Your Mission:**
+Deploy a **production-ready two-tier architecture** that provides:
+
+1. **Web Tier**: Auto-scaling application servers behind a load balancer
+2. **Database Tier**: Highly available Aurora MySQL cluster with read replicas
+3. **Security Layer**: WAF protection, encryption at rest/transit, and network isolation
+4. **Global Distribution**: CDN for improved performance and reduced latency
+5. **Disaster Recovery**: Multi-AZ deployment with automated backups
+
+#### **Technical Challenges to Solve:**
+- **Traffic Spikes**: Handle sudden load increases during market volatility
+- **Database Performance**: Optimize read-heavy workloads with read replicas  
+- **Security**: Implement defense-in-depth with multiple security layers
+- **Monitoring**: Real-time observability for proactive issue resolution
+- **Cost Optimization**: Auto-scaling to match demand and minimize waste
+
+#### **Success Metrics:**
+- ✅ **Performance**: Sub-2 second page load times globally
+- ✅ **Scalability**: Automatic scaling from 2 to 20+ instances based on demand
+- ✅ **Availability**: Zero unplanned downtime during 6-month pilot period  
+- ✅ **Security**: Pass all compliance audits and penetration tests
+- ✅ **Cost Efficiency**: 40% reduction in total infrastructure costs
+
+This Terraform infrastructure provides the foundation to meet all these requirements through **Infrastructure as Code**, enabling repeatable, consistent deployments across multiple environments (dev/staging/production) while maintaining enterprise-grade security and performance standards.
 
 ---
 
-## 📖 Step-by-Step Guide  
+## 📌 Overview
 
-📌 **Read the full tutorial with screenshots**:  
-[Deploy Two-Tier Architecture on AWS using Terraform](https://blog.prodevopsguytech.com/deploy-two-tier-architecture-on-aws-using-terraform)  
+This project implements a **production-ready two-tier web application architecture** on AWS using Infrastructure as Code (IaC) with Terraform. The architecture follows AWS Well-Architected Framework principles and implements industry best practices for security, scalability, and high availability.  
+
+### 🎯 Business Objectives
+
+- **Scalability**: Handle variable traffic loads with auto-scaling capabilities
+- **High Availability**: 99.99% uptime with multi-AZ deployment
+- **Security**: Zero-trust security model with WAF, encryption, and IAM
+- **Cost Optimization**: Right-sized resources with automated scaling
+- **Maintainability**: Modular, version-controlled infrastructure
+
+### ✨ Key Features
+
+- 🏗️ **Modular Terraform Architecture** - Reusable, maintainable modules
+- 🔒 **Security-First Design** - WAF, encryption at rest/transit, security groups
+- 📈 **Auto Scaling & Load Balancing** - Dynamic scaling based on metrics
+- 🌐 **Global Content Delivery** - CloudFront CDN with edge locations
+- 🛡️ **SSL/TLS Termination** - AWS Certificate Manager integration
+- 📊 **Monitoring & Alerting** - CloudWatch metrics and alarms
+- 🗃️ **Database High Availability** - RDS Aurora with read replicas
+- 🌍 **DNS Management** - Route 53 with health checks
+
+## 🏗️ Architecture
+
+```mermaid
+graph TB
+    User[👤 Users] --> CF[☁️ CloudFront CDN]
+    CF --> Route53[🌐 Route 53 DNS]
+    Route53 --> ALB[⚖️ Application Load Balancer]
+    ALB --> ASG[📈 Auto Scaling Group]
+    ASG --> EC2A[🖥️ EC2 Instance AZ-A]
+    ASG --> EC2B[🖥️ EC2 Instance AZ-B]
+    EC2A --> RDS[🗄️ RDS Aurora Cluster]
+    EC2B --> RDS
+    RDS --> RDSReplica[🗄️ Read Replica]
+    
+    WAF[🛡️ AWS WAF] --> ALB
+    ACM[🔐 SSL Certificate] --> ALB
+    
+    subgraph "AWS VPC"
+        subgraph "Public Subnets"
+            ALB
+        end
+        subgraph "Private Subnets"
+            EC2A
+            EC2B
+            RDS
+            RDSReplica
+        end
+    end
+```
+
+### 🏛️ Architecture Components
+
+| Tier | Component | Purpose | Availability |
+|------|-----------|---------|--------------|
+| **Web Tier** | Application Load Balancer | Traffic distribution & SSL termination | Multi-AZ |
+| **Web Tier** | Auto Scaling Group | Dynamic EC2 instance management | Multi-AZ |
+| **Web Tier** | EC2 Instances | Application hosting | Multi-AZ |
+| **Database Tier** | RDS Aurora MySQL | Primary database cluster | Multi-AZ |
+| **Database Tier** | Aurora Read Replica | Read scaling & disaster recovery | Multi-AZ |
+| **Global** | CloudFront CDN | Content delivery & caching | Global |
+| **Security** | AWS WAF | Web application firewall | Regional |  
 
 ---
 
-## 🚀 Getting Started  
+## � Prerequisites
 
-### 1️⃣ Clone the Repository  
+### 📋 Required Tools
+
+| Tool | Version | Installation |
+|------|---------|--------------|
+| **Terraform** | ≥ 1.0.0 | [Install Guide](https://terraform.io/downloads) |
+| **AWS CLI** | ≥ 2.0.0 | [Install Guide](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) |
+| **Git** | ≥ 2.30.0 | [Install Guide](https://git-scm.com/downloads) |
+| **jq** | Latest | `brew install jq` (macOS) |
+
+### 🔑 AWS Requirements
+
+- **AWS Account** with appropriate permissions
+- **Domain Name** registered (for SSL certificate)
+- **IAM User/Role** with following permissions:
+  - `AdministratorAccess` (recommended for initial setup)
+  - Or specific permissions for: EC2, VPC, RDS, Route53, CloudFront, WAF, IAM
+
+### 🌍 Supported Regions
+
+This template is tested and supports deployment in:
+- `us-east-1` (N. Virginia)
+- `us-west-2` (Oregon)
+- `eu-west-1` (Ireland)
+- `ap-southeast-1` (Singapore)
+
+## 📁 Project Structure
+
+```
+Two-Tier-Application/
+├── 📄 main.tf                    # Root module & provider configuration
+├── 📄 variables.tf               # Input variables definition
+├── 📄 variables.tfvars           # Variable values (customize this)
+├── 📄 backend.tf                 # Terraform state backend configuration
+├── 📄 outputs.tf                 # Output values
+├── 📄 README.md                  # This documentation
+├── 📄 .gitignore                 # Git ignore rules
+└── 📁 modules/                   # Reusable Terraform modules
+    ├── 📁 aws-vpc/               # VPC, subnets, IGW, NAT
+    │   ├── main.tf
+    │   └── variables.tf
+    ├── 📁 security-group/        # Security groups & rules
+    │   ├── main.tf
+    │   ├── variable.tf
+    │   └── gather.tf
+    ├── 📁 aws-rds/               # RDS Aurora cluster
+    │   ├── main.tf
+    │   ├── variables.tf
+    │   └── gather.tf
+    ├── 📁 alb-tg/                # Application Load Balancer
+    │   ├── main.tf
+    │   ├── variables.tf
+    │   └── gather.tf
+    ├── 📁 aws-autoscaling/       # Auto Scaling Group & Launch Template
+    │   ├── main.tf
+    │   ├── variable.tf
+    │   ├── gather.tf
+    │   └── deploy.sh
+    ├── 📁 aws-iam/               # IAM roles, policies, instance profiles
+    │   ├── iam-role.tf
+    │   ├── iam-policy.tf
+    │   ├── iam-instance-profile.tf
+    │   ├── variables.tf
+    │   ├── iam-role.json
+    │   └── iam-policy.json
+    └── 📁 aws-waf-cdn-acm-route53/ # WAF, CloudFront, ACM, Route53
+        ├── waf.tf
+        ├── cdn.tf
+        ├── acm.tf
+        ├── route53.tf
+        ├── variables.tf
+        └── gather.tf
+```
+
+## 🚀 Quick Start
+
+### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/NotHarshhaa/DevOps-Projects
-cd DevOps-Projects/DevOps-Project-11/
-```  
+git clone https://github.com/Ike-DevCloudIQ/Two-Tier-Application.git
+cd Two-Tier-Application
+```
 
-### 2️⃣ Initialize and Apply Terraform  
+### 2️⃣ Configure AWS Credentials
 
 ```bash
+# Method 1: AWS CLI
+aws configure
+
+# Method 2: Environment Variables
+export AWS_ACCESS_KEY_ID="your-access-key"
+export AWS_SECRET_ACCESS_KEY="your-secret-key"
+export AWS_DEFAULT_REGION="eu-west-1"
+
+# Method 3: AWS SSO (Recommended)
+aws sso login --profile your-profile
+```
+
+### 3️⃣ Customize Variables
+
+```bash
+cp variables.tfvars variables.tfvars.local
+# Edit variables.tfvars.local with your values
+```
+
+### 4️⃣ Deploy Infrastructure
+
+```bash
+# Initialize Terraform
 terraform init
-terraform plan -var-file=variables.tfvars
-terraform apply -var-file=variables.tfvars --auto-approve
-```  
 
-### 3️⃣ Cleanup (Destroy Infrastructure)  
+# Plan deployment
+terraform plan -var-file="variables.tfvars"
 
-```bash
-terraform destroy -var-file=variables.tfvars --auto-approve
+# Apply configuration
+terraform apply -var-file="variables.tfvars"
 ```  
 
 ---
@@ -75,26 +275,3 @@ terraform destroy -var-file=variables.tfvars --auto-approve
 ✅ **Amazon CloudFront (CDN)** – Faster content delivery worldwide  
 ✅ **SSL/TLS Encryption** – Secure communication with ACM  
 
----
-
-## 🛠️ Author & Community  
-
-This project is crafted by **[Harshhaa](https://github.com/NotHarshhaa)** 💡.  
-I’d love to hear your feedback! Feel free to share your thoughts.  
-
-📧 **Connect with me:**
-
-- **GitHub**: [@NotHarshhaa](https://github.com/NotHarshhaa)  
-- **Blog**: [ProDevOpsGuy](https://blog.prodevopsguytech.com)  
-- **Telegram Community**: [Join Here](https://t.me/prodevopsguy)  
-- **LinkedIn**: [Harshhaa Vardhan Reddy](https://www.linkedin.com/in/harshhaa-vardhan-reddy/)  
-
----
-
-## ⭐ Support the Project  
-
-If you found this helpful, consider **starring** ⭐ the repository and sharing it with your network! 🚀  
-
-### 📢 Stay Connected  
-
-![Follow Me](https://imgur.com/2j7GSPs.png)  
