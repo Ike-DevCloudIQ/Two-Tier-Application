@@ -93,14 +93,6 @@ This project implements a **production-ready two-tier web application architectu
 
 *Conceptual overview of the two-tier architecture design*
 
-### 🌐 Actual Deployed Infrastructure
-
-The following shows the real AWS infrastructure as deployed by this Terraform code:
-
-![AWS VPC Resource Map](images/vpc-resource-map.png)
-
-*AWS VPC Console showing the actual deployed Two-Tier-VPC with all networking components*
-
 ### 🏛️ Architecture Components
 
 | Tier | Component | Purpose | Availability |
