@@ -93,7 +93,7 @@ This project implements a **production-ready two-tier web application architectu
 
 The deployment begins with Terraform planning phase, showing all resources to be created:
 
-<img src="https://github.com/user-attachments/assets/c1dr_block.png" alt="Terraform Plan Output" width="800"/>
+<img src="./images/terraform-plan.png" alt="Terraform Plan Output" width="800"/>
 
 *Terraform plan output showing VPC infrastructure components to be provisioned*
 
@@ -101,7 +101,7 @@ The deployment begins with Terraform planning phase, showing all resources to be
 
 Below is the actual deployed infrastructure in AWS Console, showing the complete two-tier architecture:
 
-<img src="https://github.com/user-attachments/assets/vpc-resource-map.png" alt="AWS VPC Resource Map" width="800"/>
+![AWS VPC Resource Map](https://via.placeholder.com/800x400/1f2937/ffffff?text=AWS+VPC+Resource+Map+%28Screenshot+Coming+Soon%29)
 
 *AWS VPC Console showing the deployed Two-Tier-VPC with all networking components*
 
@@ -243,30 +243,30 @@ terraform apply -var-file="variables.tfvars"
 ### 🌐 Network Infrastructure
 
 **NAT Gateways**: Multi-AZ NAT gateway deployment for outbound internet access from private subnets
-<img src="https://github.com/user-attachments/assets/nat-gateways.png" alt="NAT Gateways" width="800"/>
+![NAT Gateways](https://via.placeholder.com/800x200/059669/ffffff?text=NAT+Gateways+%28Screenshot+Coming+Soon%29)
 
 ### 🖥️ Compute Infrastructure
 
 **Launch Templates**: EC2 launch template configuration for auto scaling
-<img src="https://github.com/user-attachments/assets/launch-templates.png" alt="Launch Templates" width="800"/>
+![Launch Templates](https://via.placeholder.com/800x200/7c3aed/ffffff?text=Launch+Templates+%28Screenshot+Coming+Soon%29)
 
 **Auto Scaling Groups**: Configured ASG with desired capacity and availability zones
-<img src="https://github.com/user-attachments/assets/auto-scaling-groups.png" alt="Auto Scaling Groups" width="800"/>
+![Auto Scaling Groups](https://via.placeholder.com/800x200/dc2626/ffffff?text=Auto+Scaling+Groups+%28Screenshot+Coming+Soon%29)
 
 ### ⚖️ Load Balancing
 
 **Application Load Balancer**: Internet-facing ALB distributing traffic across multiple AZs
-<img src="https://github.com/user-attachments/assets/load-balancer.png" alt="Application Load Balancer" width="800"/>
+![Application Load Balancer](https://via.placeholder.com/800x200/2563eb/ffffff?text=Application+Load+Balancer+%28Screenshot+Coming+Soon%29)
 
 ### 🗄️ Database Infrastructure
 
 **RDS Aurora Cluster**: Managed Aurora MySQL cluster with primary instance and read replica
-<img src="https://github.com/user-attachments/assets/rds-aurora.png" alt="RDS Aurora Cluster" width="800"/>
+![RDS Aurora Cluster](https://via.placeholder.com/800x200/ea580c/ffffff?text=RDS+Aurora+Cluster+%28Screenshot+Coming+Soon%29)
 
 ### 🌍 DNS Management
 
 **Route 53 Hosted Zone**: DNS management for cloudautomation.site domain
-<img src="https://github.com/user-attachments/assets/route53.png" alt="Route 53 DNS" width="800"/>
+![Route 53 DNS](https://via.placeholder.com/800x200/16a34a/ffffff?text=Route+53+DNS+%28Screenshot+Coming+Soon%29)
 
 ---
 
