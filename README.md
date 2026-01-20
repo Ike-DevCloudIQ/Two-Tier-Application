@@ -89,6 +89,22 @@ This project implements a **production-ready two-tier web application architectu
 
 ![Two-Tier Architecture](https://imgur.com/X4dGBg6.gif)
 
+### 📋 Terraform Infrastructure Planning
+
+The deployment begins with Terraform planning phase, showing all resources to be created:
+
+<img src="https://github.com/user-attachments/assets/c1dr_block.png" alt="Terraform Plan Output" width="800"/>
+
+*Terraform plan output showing VPC infrastructure components to be provisioned*
+
+### 🌐 Deployed AWS Infrastructure
+
+Below is the actual deployed infrastructure in AWS Console, showing the complete two-tier architecture:
+
+<img src="https://github.com/user-attachments/assets/vpc-resource-map.png" alt="AWS VPC Resource Map" width="800"/>
+
+*AWS VPC Console showing the deployed Two-Tier-VPC with all networking components*
+
 ### 🏛️ Architecture Components
 
 | Tier | Component | Purpose | Availability |
@@ -220,7 +236,37 @@ terraform plan -var-file="variables.tfvars"
 
 # Apply configuration
 terraform apply -var-file="variables.tfvars"
-```  
+```
+
+## 📸 Deployment Evidence
+
+### 🌐 Network Infrastructure
+
+**NAT Gateways**: Multi-AZ NAT gateway deployment for outbound internet access from private subnets
+<img src="https://github.com/user-attachments/assets/nat-gateways.png" alt="NAT Gateways" width="800"/>
+
+### 🖥️ Compute Infrastructure
+
+**Launch Templates**: EC2 launch template configuration for auto scaling
+<img src="https://github.com/user-attachments/assets/launch-templates.png" alt="Launch Templates" width="800"/>
+
+**Auto Scaling Groups**: Configured ASG with desired capacity and availability zones
+<img src="https://github.com/user-attachments/assets/auto-scaling-groups.png" alt="Auto Scaling Groups" width="800"/>
+
+### ⚖️ Load Balancing
+
+**Application Load Balancer**: Internet-facing ALB distributing traffic across multiple AZs
+<img src="https://github.com/user-attachments/assets/load-balancer.png" alt="Application Load Balancer" width="800"/>
+
+### 🗄️ Database Infrastructure
+
+**RDS Aurora Cluster**: Managed Aurora MySQL cluster with primary instance and read replica
+<img src="https://github.com/user-attachments/assets/rds-aurora.png" alt="RDS Aurora Cluster" width="800"/>
+
+### 🌍 DNS Management
+
+**Route 53 Hosted Zone**: DNS management for cloudautomation.site domain
+<img src="https://github.com/user-attachments/assets/route53.png" alt="Route 53 DNS" width="800"/>
 
 ---
 
