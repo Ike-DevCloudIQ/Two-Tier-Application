@@ -87,23 +87,19 @@ This project implements a **production-ready two-tier web application architectu
 
 ## 🏗️ Architecture
 
+### 🎨 High-Level Architecture Diagram
+
 ![Two-Tier Architecture](https://imgur.com/X4dGBg6.gif)
 
-### 📋 Terraform Infrastructure Planning
+*Conceptual overview of the two-tier architecture design*
 
-The deployment begins with Terraform planning phase, showing all resources to be created:
+### 🌐 Actual Deployed Infrastructure
 
-<img src="./images/terraform-plan.png" alt="Terraform Plan Output" width="800"/>
-
-*Terraform plan output showing VPC infrastructure components to be provisioned*
-
-### 🌐 Deployed AWS Infrastructure
-
-Below is the actual deployed infrastructure in AWS Console, showing the complete two-tier architecture:
+The following shows the real AWS infrastructure as deployed by this Terraform code:
 
 ![AWS VPC Resource Map](images/vpc-resource-map.png)
 
-*AWS VPC Console showing the deployed Two-Tier-VPC with all networking components*
+*AWS VPC Console showing the actual deployed Two-Tier-VPC with all networking components*
 
 ### 🏛️ Architecture Components
 
@@ -240,33 +236,66 @@ terraform apply -var-file="variables.tfvars"
 
 ## 📸 Deployment Evidence
 
+The following screenshots demonstrate the successful deployment of all infrastructure components in AWS:
+
+### 📋 Infrastructure Planning
+
+**Terraform Plan Output**: Complete infrastructure planning showing all resources to be created
+![Terraform Plan](images/terraform-plan.png)
+
+*Terraform plan output showing VPC infrastructure components to be provisioned*
+
 ### 🌐 Network Infrastructure
+
+**VPC Resource Map**: Complete network topology with public/private subnets, internet gateway, and NAT gateways
+![VPC Resource Map](images/vpc-resource-map.png)
+
+*AWS VPC Console showing the deployed Two-Tier-VPC with all networking components*
 
 **NAT Gateways**: Multi-AZ NAT gateway deployment for outbound internet access from private subnets
 ![NAT Gateways](images/nat-gateways.png)
 
+*NAT Gateways deployed in each public subnet for high availability*
+
+### 🔒 Security Infrastructure
+
+**Security Groups**: Network-level security rules for web and database tiers
+![Security Groups](images/Security-Groups.png)
+
+*Security groups implementing defense-in-depth security model*
+
 ### 🖥️ Compute Infrastructure
 
-**Launch Templates**: EC2 launch template configuration for auto scaling
+**Launch Templates**: EC2 launch template configuration with user data and security settings
 ![Launch Templates](images/launch-templates.png)
 
-**Auto Scaling Groups**: Configured ASG with desired capacity and availability zones
+*Launch template defining EC2 instance configuration for auto scaling*
+
+**Auto Scaling Groups**: Configured ASG with desired capacity, availability zones, and scaling policies
 ![Auto Scaling Groups](images/auto-scaling-groups.png)
+
+*Auto Scaling Group managing EC2 instances across multiple availability zones*
 
 ### ⚖️ Load Balancing
 
-**Application Load Balancer**: Internet-facing ALB distributing traffic across multiple AZs
+**Application Load Balancer**: Internet-facing ALB distributing traffic across multiple AZs with health checks
 ![Application Load Balancer](images/load-balancer.png)
+
+*ALB configuration with target groups and health check settings*
 
 ### 🗄️ Database Infrastructure
 
 **RDS Aurora Cluster**: Managed Aurora MySQL cluster with primary instance and read replica
 ![RDS Aurora Cluster](images/rds-aurora.png)
 
+*Aurora cluster with writer and reader instances for high availability*
+
 ### 🌍 DNS Management
 
-**Route 53 Hosted Zone**: DNS management for cloudautomation.site domain
+**Route 53 Hosted Zone**: DNS management for cloudautomation.site domain with health checks
 ![Route 53 DNS](images/route53.png)
+
+*Route 53 hosted zone configuration with DNS records and routing policies*
 
 ---
 
