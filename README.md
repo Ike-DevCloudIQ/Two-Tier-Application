@@ -101,7 +101,7 @@ The deployment begins with Terraform planning phase, showing all resources to be
 
 Below is the actual deployed infrastructure in AWS Console, showing the complete two-tier architecture:
 
-![AWS VPC Resource Map](https://via.placeholder.com/800x400/1f2937/ffffff?text=AWS+VPC+Resource+Map+%28Screenshot+Coming+Soon%29)
+![AWS VPC Resource Map](images/vpc-resource-map.png)
 
 *AWS VPC Console showing the deployed Two-Tier-VPC with all networking components*
 
@@ -243,30 +243,30 @@ terraform apply -var-file="variables.tfvars"
 ### 🌐 Network Infrastructure
 
 **NAT Gateways**: Multi-AZ NAT gateway deployment for outbound internet access from private subnets
-![NAT Gateways](https://via.placeholder.com/800x200/059669/ffffff?text=NAT+Gateways+%28Screenshot+Coming+Soon%29)
+![NAT Gateways](images/nat-gateways.png)
 
 ### 🖥️ Compute Infrastructure
 
 **Launch Templates**: EC2 launch template configuration for auto scaling
-![Launch Templates](https://via.placeholder.com/800x200/7c3aed/ffffff?text=Launch+Templates+%28Screenshot+Coming+Soon%29)
+![Launch Templates](images/launch-templates.png)
 
 **Auto Scaling Groups**: Configured ASG with desired capacity and availability zones
-![Auto Scaling Groups](https://via.placeholder.com/800x200/dc2626/ffffff?text=Auto+Scaling+Groups+%28Screenshot+Coming+Soon%29)
+![Auto Scaling Groups](images/auto-scaling-groups.png)
 
 ### ⚖️ Load Balancing
 
 **Application Load Balancer**: Internet-facing ALB distributing traffic across multiple AZs
-![Application Load Balancer](https://via.placeholder.com/800x200/2563eb/ffffff?text=Application+Load+Balancer+%28Screenshot+Coming+Soon%29)
+![Application Load Balancer](images/load-balancer.png)
 
 ### 🗄️ Database Infrastructure
 
 **RDS Aurora Cluster**: Managed Aurora MySQL cluster with primary instance and read replica
-![RDS Aurora Cluster](https://via.placeholder.com/800x200/ea580c/ffffff?text=RDS+Aurora+Cluster+%28Screenshot+Coming+Soon%29)
+![RDS Aurora Cluster](images/rds-aurora.png)
 
 ### 🌍 DNS Management
 
 **Route 53 Hosted Zone**: DNS management for cloudautomation.site domain
-![Route 53 DNS](https://via.placeholder.com/800x200/16a34a/ffffff?text=Route+53+DNS+%28Screenshot+Coming+Soon%29)
+![Route 53 DNS](images/route53.png)
 
 ---
 
