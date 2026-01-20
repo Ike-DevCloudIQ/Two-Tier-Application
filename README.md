@@ -87,33 +87,7 @@ This project implements a **production-ready two-tier web application architectu
 
 ## 🏗️ Architecture
 
-```mermaid
-graph TB
-    User[👤 Users] --> CF[☁️ CloudFront CDN]
-    CF --> Route53[🌐 Route 53 DNS]
-    Route53 --> ALB[⚖️ Application Load Balancer]
-    ALB --> ASG[📈 Auto Scaling Group]
-    ASG --> EC2A[🖥️ EC2 Instance AZ-A]
-    ASG --> EC2B[🖥️ EC2 Instance AZ-B]
-    EC2A --> RDS[🗄️ RDS Aurora Cluster]
-    EC2B --> RDS
-    RDS --> RDSReplica[🗄️ Read Replica]
-    
-    WAF[🛡️ AWS WAF] --> ALB
-    ACM[🔐 SSL Certificate] --> ALB
-    
-    subgraph "AWS VPC"
-        subgraph "Public Subnets"
-            ALB
-        end
-        subgraph "Private Subnets"
-            EC2A
-            EC2B
-            RDS
-            RDSReplica
-        end
-    end
-```
+![Two-Tier Architecture](https://imgur.com/X4dGBg6.gif)
 
 ### 🏛️ Architecture Components
 
